@@ -1,14 +1,31 @@
 {
   "dependencies": {
     "@supabase/supabase-js": "^2.99.2",
+    "body-parser": "^2.2.2",
     "cors": "^2.8.6",
     "express": "^5.2.1"
   },
   "type": "module",
   "scripts": {
-    "dev": "nodemon main.js"
+    "dev": "nodemon main.js",
+    "start": "node server.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
-  }
+  },
+  "name": "projeto-sup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cauann071/projeto-sup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cauann071/projeto-sup/issues"
+  },
+  "homepage": "https://github.com/cauann071/projeto-sup#readme"
 }

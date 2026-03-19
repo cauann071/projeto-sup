@@ -1,19 +1,27 @@
 import express from 'express'
 import cors from 'cors'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import { createClient } from '@supabase/supabase-js'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 const app = express()
+
 app.use(cors())
 app.use(express.json())
+app.use(express.static('public')) // MUITO IMPORTANTE
 
-// Configuração Supabase
-const supabaseUrl = 'https://SEU-PROJETO.supabase.co'
-const supabaseKey = 'SUA_ANON_KEY'
+const supabaseUrl = 'https://bclfmimjjbegykwyfttw.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjbGZtaW1qamJlZ3lrd3lmdHR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3NzA4ODUsImV4cCI6MjA4OTM0Njg4NX0.7wI4Lh_lb9BHrOxtYNW6YVNP20IE4b5EitzTxgzkOFk'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 6534
 
-// 🔹 ROTAS CRUD
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+})
 
 // READ: listar todos os usuários
 app.get('/usuarios', async (req, res) => {
@@ -67,9 +75,6 @@ app.delete('/usuarios/:id', async (req, res) => {
   res.json({ sucesso: true })
 })
 
-// Rota teste
-app.get('/', (req, res) => {
-  res.send('Servidor rodando!')
-})
-
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`))
+app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
+});
