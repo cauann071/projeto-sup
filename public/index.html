@@ -12,14 +12,41 @@
   <button onclick = "ButtonSave()">Salvar</button>
 
   <h1 id="mensagem"></h1>
-  <script>
+ <script>
+  async function ButtonSave() {
+    const nickname = document.getElementById('nome').value;
 
-    function ButtonSave(){
-      const nickname = document.getElementById('nome').value;
-
-      alert("CLICADO " + nickname);
+    if (!nickname) {
+      alert("Digite um nome!");
+      return;
     }
 
-  </script>
+    try {
+      const response = await fetch('/usuarios', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nome: nickname
+        })
+      });
+
+      const data = await response.json();
+
+      console.log(data);
+      
+      if (data.sucesso) {
+        document.getElementById('mensagem').innerText = "Salvo com sucesso!";
+      } else {
+        document.getElementById('mensagem').innerText = "Erro ao salvar";
+      }
+
+    } catch (err) {
+      console.error(err);
+      document.getElementById('mensagem').innerText = "Erro na conexão";
+    }
+  }
+</script>
 </body>
 </html>
